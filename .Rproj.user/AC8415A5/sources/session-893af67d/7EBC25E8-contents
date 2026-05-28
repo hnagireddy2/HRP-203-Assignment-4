@@ -1,0 +1,47 @@
+---
+title: "HRP-203-Assignment-4"
+format: html
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+Load the **library**:
+
+```{r}
+#Library
+library(gtsummary)
+library(effects)
+library(dplyr)
+library(ggplot2)
+library(pROC)
+```
+
+Read the **data**:
+
+```{r}
+#Read data
+cohort_data_raw <- read.csv("raw-data/cohort.csv")
+cohort_data <- cohort_data_raw %>%
+  mutate(row_id = row_number())
+```
+
+Display the **comprehensive summary table**:
+
+```{r}
+#Comprehensive summary table
+tbl_summary(cohort_data)
+```
+
+Display the **comprehensive summary table**:
+
+```{r}
+#Comprehensive summary table
+tbl_summary(cohort_data)
+```
+
+
