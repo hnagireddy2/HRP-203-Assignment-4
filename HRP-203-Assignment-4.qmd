@@ -6,57 +6,67 @@ editor: visual
 
 ## Introduction
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+Smoking is the leading preventable cause of cardiovascular disease, responsible for about 1 in 4 cardiovascular disease-related deaths in the United States. It raises triglycerides, lowers "good" cholesterol (HDL), increases the tendency of blood to clot-which can block blood flow to the heart and brain, damages cells that line the blood vessels, increases the buildup of plaque in blood vessels, and causes thickening and narrowing of blood vessels. Smoking increases the risk of many cardiovascular diseases, including atherosclerosis, coronary heart disease (CHD)-including heart attack and sudden cardiac death, stroke, peripheral arterial disease (PAD), and abdominal aortic aneurysm. ([CDC 2024](https://www.cdc.gov/tobacco/about/cigarettes-and-cardiovascular-disease.html))
+
+Smoking also has a dramatic effect on the economy and the healthcare sector. In 2018, cigarette smoking cost the United States more than an estimated \$600 billion, including more than \$240 billion in health care spending. ([CDC 2024](https://www.cdc.gov/tobacco/php/data-statistics/economic-trends/index.html)) In a cross-sectional study of over 13,000 adults with chronic lower respiratory disease, the annual smoking-attributable health care expenditures (SAHEs) was found to be \$13.6 billion, or \$2752 per current smoker and \$1083 per former smoker for people ages 35 to 65. Among those 65 years or older, annual SAHEs were \$5.3 billion, or \$1704 per current smoker and \$682 per former smoker. ([Gu et al., 2024](https://pmc.ncbi.nlm.nih.gov/articles/PMC11140527/))
 
 ## Methods
 
-Two models were built to assess the association between (1) smoking and CVD incidence and (2) smoking and healthcare costs, adjusting for both age and sex.
+Generalized linear regression models were built with binomial and gaussian distributions. A logistic regression model was used to determine the association between smoking and cardiovascular disease incidence. The association between smoking and healthcare costs was assessed using a linear regression. Both models adjusted for age and sex. Below are the models used:
 
-To validate the models, a 70/30 train-test data split was created. The training dataset was used to build the regression models, and the test dataset was used to compare predicted outcomes to actual outcomes. Validation was plotted as an ROC curve for the logistic regression (smoking and CVD incidence) and as a plot for the linear regression (smoking and healthcare costs).
+**log(p / (1-p)) = β₀ + β₁(smoke) + β₂(female) + β₃(age) \
+**where p is the probability of cardiovascular disease incidence
 
-We then fit the models to the full dataset to assess the direction and magnitude of association between smoking and each outcome.
+**E\[cost\] = β₀ + β₁(smoke) + β₂(female) + β₃(age)**
+
+To validate the models, a 70/30 train-test data split was created. The training dataset was used to build the regression models, and the test dataset was used to compare predicted outcomes to actual outcomes. Validation was plotted as an ROC curve for the logistic regression (smoking and cardiovascular disease incidence) and as a plot for the linear regression (smoking and healthcare costs).
+
+The models were then fit to the full dataset to assess the direction and magnitude of association between smoking and each outcome: cardiovascular disease incidence and healthcare costs.
 
 ## Results
 
-Load the **library**:
+A dataset of a simulated cohort (n = 5000) was analyzed for the purposes of this study.
 
 ```{r}
+#| echo: false
+#| output: false
+# Load the library:
 library(gtsummary)
 library(effects)
 library(dplyr)
 library(ggplot2)
 library(pROC)
-```
-
-Read the **data**:
-
-```{r}
+# Read the data:
 cohort_data_raw <- read.csv("raw-data/cohort.csv")
 cohort_data <- cohort_data_raw %>%
   mutate(row_id = row_number())
 ```
 
-Display the **comprehensive summary table**:
+Table 1 describes the characteristics of the simulated cohort. The average age of the cohort was 45 (95% CI = 31-59) and 2,866 (57%) of the cohort is female. Out of the 5,000 individuals, 646 (13%) are smokers, 275 (5.5%) people have been diagnosed with cardiovascular disease, and the average cost of healthcare for the cohort totaled \$9,376 (95% CI = \$9,090-\$9,676).
 
 ```{r}
+#| echo: false
 tbl_summary(cohort_data)
 ```
 
-Create the **test-train split**:
+***Table 1:** Summary statistics of the exposure variable, outcome variable, and covariates for the simulated cohort (n = 5,000).*
+
+Using a base logistic regression model to assess the relationship between smoking and cardiovascular disease incidence on the training dataset, not adjusting for age and sex, smokers have exp(2.14) = 8.47 times the odds of being diagnosed with cardiovascular disease compared to non-smokers (p \< 0.001). Adjusting for age and sex, smokers have exp(2.50) = 12.21 times the odds of being diagnosed with cardiovascular disease compared to non-smokers (p \< 0.001). Female sex was associated with substantially lower odds of CVD (exp(−4.38) = 0.01, p \< 0.001). Age was not statistically significant at the 0.05 level (exp(0.011) = 1.01, p = 0.077).
+
+Using a base linear regression model to assess the relationship between smoking and healthcare costs on the training dataset, not adjusting for age and sex, smokers face an average increase of \$552.38 in healthcare costs compared to non-smokers (p \< 0.001). Adjusting for age and sex, smokers face an average increase of \$587.69 in healthcare costs compared to non-smokers (p \< 0.001). Female sex was associated with \$318.94 lower healthcare costs (p \< 0.001). Each additional year of age was associated with \$16.87 higher healthcare costs (p \< 0.001).
 
 ```{r}
+#| echo: false
+#| output: false
+# Create the test-train split
 set.seed(99)
-
 train <- cohort_data %>%
   group_by(cardiac, smoke, female, age) %>%
   slice_sample(prop = 0.7) %>% as.data.frame()
-
 test <- anti_join(cohort_data, train, by = join_by(row_id))
-```
 
-Build **regression models**:
+# Build regression models
 
-```{r}
 # Base model (CVD outcome)
 glm_base_cvd_model = glm(cardiac ~ smoke,
                      data=train, family=binomial)
@@ -78,9 +88,11 @@ glm_full_cost_model = glm(cost ~ smoke + female + age,
 summary(glm_full_cost_model)
 ```
 
-Test the **model fit on test data**:
+We then tested the model fit on the test data. Figures 1a-b demonstrates the results of the validation. We see that the Receiver Operating Characteristic (ROC) curve yielded an area under the curve (AUC) of approximately 0.78, indicating some discriminative ability of the cardiovascular disease model. The validation plot for the cost model showed reasonable agreement between predicted and actual values.
 
 ```{r}
+#| echo: false
+#| output: false
 #Test model fit on test data
 test$predict_full_cvd <- predict(glm_full_cvd_model, newdata=test, type = "response")
 test$predict_full_cost <- predict(glm_full_cost_model, newdata=test, type = "response")
@@ -88,9 +100,10 @@ test$predict_full_cost <- predict(glm_full_cost_model, newdata=test, type = "res
 summary(test)
 ```
 
-Generate **validation figures**:
-
 ```{r}
+#| echo: false
+# Generate validation figures
+
 # CVD validation plot
 roc_cvd <- roc(test$cardiac, test$predict_full_cvd)
 ggroc(roc_cvd,color = "skyblue") +
@@ -105,9 +118,14 @@ ggplot(test, aes(x = predict_full_cost, y = cost)) +
        title = "Predicted vs Actual Healthcare Costs (Test Data)")
 ```
 
-Generate **plots**:
+***Figures 1a-b:** (a) ROC curve demonstrating an AUC of 0.7836, and (b) predicted vs. actual healthcare costs of the test data.*
+
+Fitting the logistic regression to the full dataset, adjusting for age and sex, smokers have exp(2.26) = 9.58 times the odds of being diagnosed with cardiovascular disease compared to non-smokers (p \< 0.001). Female sex was associated with substantially lower odds of CVD (exp(−2.56) = 0.08, or approximately 92% lower odds, p \< 0.001). All coefficients were statistically significant at p \< 0.05. Age was marginally significant in the training data (p = 0.077) but reached significance when fit to the full dataset (p = 0.031), likely reflecting increased statistical power.
+
+Fitting the linear regression to the full dataset, adjusting for age and sex, smokers face an average increase of \$600.87 in healthcare costs compared to non-smokers (p \< 0.001). Female sex was associated with \$323.76 lower healthcare costs (p \< 0.001). Each additional year of age was associated with \$16.96 higher healthcare costs (p \< 0.001). All coefficients were statistically significant at p \< 0.05.
 
 ```{r}
+#| echo: false
 #Fit Models to All Data
 glm_full_cvd_all <- glm(cardiac ~ smoke + female + age,
                          data = cohort_data, family = binomial)
@@ -135,13 +153,23 @@ ggplot(smoke_cost_effect, aes(x = smoke, y = fit)) +
        title = "Adjusted Effect of Smoking on Healthcare Costs")
 ```
 
-## Summary of Findings
+```{r}
+#| echo: false
+#| output: false
+# Model outputs
+summary(glm_full_cvd_all)
+summary(glm_full_cost_all)
+```
 
-Our ROC curve yielded an AUC of approximately 0.78, indicating some discriminative ability of the CVD model. The validation plot for the cost model showed reasonable agreement between predicted and actual values.
+***Figures 2a-b:** Plot with 95% CI for the (a) predicted probability of cardiovascular disease incidence based on adjusted smoking status, and (b) predicted increase in healthcare costs based on adjusted smoking status.*
 
 ## Discussion
 
-Overall, we found a positive association between smoking and the predicted probability of CVD incidence, and a positive association between smoking and predicted healthcare costs.
+Overall, we found a strong positive association between smoking and both outcomes. Smokers had 9.58 times the odds of CVD diagnosis compared to non-smokers, adjusting for age and sex (p \< 0.001), and incurred an estimated \$601 more in annual healthcare costs (p \< 0.001). These findings are consistent with the trends reported in the literature on smoking-attributable morbidity and healthcare expenditures.
+
+Among the covariates, female sex was associated with substantially lower odds of CVD (OR = 0.08, p \< 0.001) and lower healthcare costs (−\$324, p \< 0.001), consistent with known sex differences in cardiovascular risk. Age was a modest yet significant predictor of both outcomes.
+
+There are several limitations of note. First, this analysis uses simulated data, so the effect sizes may not generalize to real-world populations. Second, the models adjust only for age and sex; unmeasured confounders such as diet, physical activity, socioeconomic status, and comorbid conditions are likely important predictors of both cardiovascular disease and healthcare costs that could bias our estimates. Third, the logistic regression model achieved an AUC of 0.78, indicating moderate discriminative ability—additional predictors would likely improve classification. Finally, the cross-sectional design of this study precludes causal inference; longitudinal data would be needed to establish a temporal relationship between smoking exposure and outcomes.
 
 ## AI Statement
 
