@@ -6,15 +6,15 @@ editor: visual
 
 ## Introduction
 
-Smoking is the leading preventable cause of cardiovascular disease, responsible for about 1 in 4 cardiovascular disease-related deaths in the United States. It raises triglycerides, lowers "good" cholesterol (HDL), increases the tendency of blood to clot-which can block blood flow to the heart and brain, damages cells that line the blood vessels, increases the buildup of plaque in blood vessels, and causes thickening and narrowing of blood vessels. Smoking increases the risk of many cardiovascular diseases, including atherosclerosis, coronary heart disease (CHD)-including heart attack and sudden cardiac death, stroke, peripheral arterial disease (PAD), and abdominal aortic aneurysm. ([CDC 2024](https://www.cdc.gov/tobacco/about/cigarettes-and-cardiovascular-disease.html))
+Smoking is the leading preventable cause of cardiovascular disease, responsible for about 1 in 4 cardiovascular disease-related deaths in the United States. It raises triglycerides, lowers "good" cholesterol (HDL), increases the tendency of blood to clot-which can block blood flow to the heart and brain, damages cells that line the blood vessels, increases the buildup of plaque in blood vessels, and causes thickening and narrowing of blood vessels. Smoking increases the risk of many cardiovascular diseases, including atherosclerosis, coronary heart disease (CHD)-including heart attack and sudden cardiac death, stroke, peripheral arterial disease (PAD), and abdominal aortic aneurysm. ([CDC, 2024](https://www.cdc.gov/tobacco/about/cigarettes-and-cardiovascular-disease.html))
 
-Smoking also has a dramatic effect on the economy and the healthcare sector. In 2018, cigarette smoking cost the United States more than an estimated \$600 billion, including more than \$240 billion in health care spending. ([CDC 2024](https://www.cdc.gov/tobacco/php/data-statistics/economic-trends/index.html)) In a cross-sectional study of over 13,000 adults with chronic lower respiratory disease, the annual smoking-attributable health care expenditures (SAHEs) was found to be \$13.6 billion, or \$2752 per current smoker and \$1083 per former smoker for people ages 35 to 65. Among those 65 years or older, annual SAHEs were \$5.3 billion, or \$1704 per current smoker and \$682 per former smoker. ([Gu et al., 2024](https://pmc.ncbi.nlm.nih.gov/articles/PMC11140527/))
+Smoking also has a dramatic effect on the economy and the healthcare sector. In 2018, cigarette smoking cost the United States more than an estimated \$600 billion, including more than \$240 billion in health care spending. ([CDC, 2024](https://www.cdc.gov/tobacco/php/data-statistics/economic-trends/index.html)) In a cross-sectional study of over 13,000 adults with chronic lower respiratory disease, the annual smoking-attributable health care expenditures (SAHEs) was found to be \$13.6 billion, or \$2,752 per current smoker and \$1,083 per former smoker for people ages 35 to 65. Among those 65 years or older, annual SAHEs were \$5.3 billion, or \$1,704 per current smoker and \$682 per former smoker. ([Gu et al., 2024](https://pmc.ncbi.nlm.nih.gov/articles/PMC11140527/))
 
 ## Methods
 
-Generalized linear regression models were built with binomial and gaussian distributions. A logistic regression model was used to determine the association between smoking and cardiovascular disease incidence. The association between smoking and healthcare costs was assessed using a linear regression. Both models adjusted for age and sex. Below are the models used:
+Aa simulated cohort (n = 5000) dataset was analyzed for the purposes of this study. Two generalized linear models were fit. A logistic regression (binomial family) estimated the association between smoking and cardiovascular disease incidence. A linear regression (gaussian family) assessed the association between smoking and healthcare costs. Both models adjusted for age and sex. Below are the model specifications:
 
-**log(p / (1-p)) = β₀ + β₁(smoke) + β₂(female) + β₃(age) \
+**log(p / (1-p)) = β₀ + β₁(smoke) + β₂(female) + β₃(age)\
 **where p is the probability of cardiovascular disease incidence
 
 **E\[cost\] = β₀ + β₁(smoke) + β₂(female) + β₃(age)**
@@ -25,7 +25,7 @@ The models were then fit to the full dataset to assess the direction and magnitu
 
 ## Results
 
-A dataset of a simulated cohort (n = 5000) was analyzed for the purposes of this study.
+Table 1 describes the simulated cohort (n = 5,000). The average age was 45 (95% CI: 31–59), and 2,866 (57%) were female. Of the 5,000 individuals, 646 (13%) were smokers, 275 (5.5%) had been diagnosed with cardiovascular disease, and the average healthcare cost was \$9,376 (95% CI: \$9,090–\$9,676).
 
 ```{r}
 #| echo: false
@@ -42,14 +42,13 @@ cohort_data <- cohort_data_raw %>%
   mutate(row_id = row_number())
 ```
 
-Table 1 describes the characteristics of the simulated cohort. The average age of the cohort was 45 (95% CI = 31-59) and 2,866 (57%) of the cohort is female. Out of the 5,000 individuals, 646 (13%) are smokers, 275 (5.5%) people have been diagnosed with cardiovascular disease, and the average cost of healthcare for the cohort totaled \$9,376 (95% CI = \$9,090-\$9,676).
-
 ```{r}
 #| echo: false
+#| tbl-pos: 'H'
 tbl_summary(cohort_data)
 ```
 
-***Table 1:** Summary statistics of the exposure variable, outcome variable, and covariates for the simulated cohort (n = 5,000).*
+***Table 1:** Descriptive statistics of the simulated cohort (n = 5,000), including smoking status, cardiovascular disease incidence, healthcare costs, age, and sex.*
 
 Using a base logistic regression model to assess the relationship between smoking and cardiovascular disease incidence on the training dataset, not adjusting for age and sex, smokers have exp(2.14) = 8.47 times the odds of being diagnosed with cardiovascular disease compared to non-smokers (p \< 0.001). Adjusting for age and sex, smokers have exp(2.50) = 12.21 times the odds of being diagnosed with cardiovascular disease compared to non-smokers (p \< 0.001). Female sex was associated with substantially lower odds of CVD (exp(−4.38) = 0.01, p \< 0.001). Age was not statistically significant at the 0.05 level (exp(0.011) = 1.01, p = 0.077).
 
@@ -105,7 +104,7 @@ summary(test)
 # Generate validation figures
 
 # CVD validation plot
-roc_cvd <- roc(test$cardiac, test$predict_full_cvd)
+roc_cvd <- roc(test$cardiac, test$predict_full_cvd, quiet = TRUE)
 ggroc(roc_cvd,color = "skyblue") +
   labs(title="ROC Curve for CVD Model")
 auc(roc_cvd)
@@ -118,7 +117,7 @@ ggplot(test, aes(x = predict_full_cost, y = cost)) +
        title = "Predicted vs Actual Healthcare Costs (Test Data)")
 ```
 
-***Figures 1a-b:** (a) ROC curve demonstrating an AUC of 0.7836, and (b) predicted vs. actual healthcare costs of the test data.*
+***Figures 1a-b:** Model validation on the test dataset (30% holdout). (a) ROC curve for the logistic regression model predicting cardiovascular disease incidence (AUC = 0.784). (b) Predicted vs. actual healthcare costs from the linear regression model; the diagonal line represents perfect agreement.*
 
 Fitting the logistic regression to the full dataset, adjusting for age and sex, smokers have exp(2.26) = 9.58 times the odds of being diagnosed with cardiovascular disease compared to non-smokers (p \< 0.001). Female sex was associated with substantially lower odds of CVD (exp(−2.56) = 0.08, or approximately 92% lower odds, p \< 0.001). All coefficients were statistically significant at p \< 0.05. Age was marginally significant in the training data (p = 0.077) but reached significance when fit to the full dataset (p = 0.031), likely reflecting increased statistical power.
 
@@ -161,7 +160,7 @@ summary(glm_full_cvd_all)
 summary(glm_full_cost_all)
 ```
 
-***Figures 2a-b:** Plot with 95% CI for the (a) predicted probability of cardiovascular disease incidence based on adjusted smoking status, and (b) predicted increase in healthcare costs based on adjusted smoking status.*
+***Figures 2a-b:** Adjusted associations from models fit to the full dataset, controlling for age and sex. (a) Predicted probability of cardiovascular disease by smoking status with 95% confidence intervals. (b) Predicted healthcare costs by smoking status with 95% confidence intervals.*
 
 ## Discussion
 

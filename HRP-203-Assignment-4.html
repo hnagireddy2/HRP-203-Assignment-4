@@ -68,12 +68,12 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Smoking is the leading preventable cause of cardiovascular disease, responsible for about 1 in 4 cardiovascular disease-related deaths in the United States. It raises triglycerides, lowers “good” cholesterol (HDL), increases the tendency of blood to clot-which can block blood flow to the heart and brain, damages cells that line the blood vessels, increases the buildup of plaque in blood vessels, and causes thickening and narrowing of blood vessels. Smoking increases the risk of many cardiovascular diseases, including atherosclerosis, coronary heart disease (CHD)-including heart attack and sudden cardiac death, stroke, peripheral arterial disease (PAD), and abdominal aortic aneurysm. (<a href="https://www.cdc.gov/tobacco/about/cigarettes-and-cardiovascular-disease.html">CDC 2024</a>)</p>
-<p>Smoking also has a dramatic effect on the economy and the healthcare sector. In 2018, cigarette smoking cost the United States more than an estimated $600 billion, including more than $240 billion in health care spending. (<a href="https://www.cdc.gov/tobacco/php/data-statistics/economic-trends/index.html">CDC 2024</a>) In a cross-sectional study of over 13,000 adults with chronic lower respiratory disease, the annual smoking-attributable health care expenditures (SAHEs) was found to be $13.6 billion, or $2752 per current smoker and $1083 per former smoker for people ages 35 to 65. Among those 65 years or older, annual SAHEs were $5.3 billion, or $1704 per current smoker and $682 per former smoker. (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11140527/">Gu et al., 2024</a>)</p>
+<p>Smoking is the leading preventable cause of cardiovascular disease, responsible for about 1 in 4 cardiovascular disease-related deaths in the United States. It raises triglycerides, lowers “good” cholesterol (HDL), increases the tendency of blood to clot-which can block blood flow to the heart and brain, damages cells that line the blood vessels, increases the buildup of plaque in blood vessels, and causes thickening and narrowing of blood vessels. Smoking increases the risk of many cardiovascular diseases, including atherosclerosis, coronary heart disease (CHD)-including heart attack and sudden cardiac death, stroke, peripheral arterial disease (PAD), and abdominal aortic aneurysm. (<a href="https://www.cdc.gov/tobacco/about/cigarettes-and-cardiovascular-disease.html">CDC, 2024</a>)</p>
+<p>Smoking also has a dramatic effect on the economy and the healthcare sector. In 2018, cigarette smoking cost the United States more than an estimated $600 billion, including more than $240 billion in health care spending. (<a href="https://www.cdc.gov/tobacco/php/data-statistics/economic-trends/index.html">CDC, 2024</a>) In a cross-sectional study of over 13,000 adults with chronic lower respiratory disease, the annual smoking-attributable health care expenditures (SAHEs) was found to be $13.6 billion, or $2,752 per current smoker and $1,083 per former smoker for people ages 35 to 65. Among those 65 years or older, annual SAHEs were $5.3 billion, or $1,704 per current smoker and $682 per former smoker. (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11140527/">Gu et al., 2024</a>)</p>
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
-<p>Generalized linear regression models were built with binomial and gaussian distributions. A logistic regression model was used to determine the association between smoking and cardiovascular disease incidence. The association between smoking and healthcare costs was assessed using a linear regression. Both models adjusted for age and sex. Below are the models used:</p>
+<p>Aa simulated cohort (n = 5000) dataset was analyzed for the purposes of this study. Two generalized linear models were fit. A logistic regression (binomial family) estimated the association between smoking and cardiovascular disease incidence. A linear regression (gaussian family) assessed the association between smoking and healthcare costs. Both models adjusted for age and sex. Below are the model specifications:</p>
 <p><strong>log(p / (1-p)) = β₀ + β₁(smoke) + β₂(female) + β₃(age)<br>
 </strong>where p is the probability of cardiovascular disease incidence</p>
 <p><strong>E[cost] = β₀ + β₁(smoke) + β₂(female) + β₃(age)</strong></p>
@@ -82,27 +82,26 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
-<p>A dataset of a simulated cohort (n = 5000) was analyzed for the purposes of this study.</p>
-<p>Table 1 describes the characteristics of the simulated cohort. The average age of the cohort was 45 (95% CI = 31-59) and 2,866 (57%) of the cohort is female. Out of the 5,000 individuals, 646 (13%) are smokers, 275 (5.5%) people have been diagnosed with cardiovascular disease, and the average cost of healthcare for the cohort totaled $9,376 (95% CI = $9,090-$9,676).</p>
-<div class="cell">
+<p>Table 1 describes the simulated cohort (n = 5,000). The average age was 45 (95% CI: 31–59), and 2,866 (57%) were female. Of the 5,000 individuals, 646 (13%) were smokers, 275 (5.5%) had been diagnosed with cardiovascular disease, and the average healthcare cost was $9,376 (95% CI: $9,090–$9,676).</p>
+<div class="cell" data-tbl-pos="H">
 <div class="cell-output-display">
-<div id="aobbclxjhp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#aobbclxjhp table {
+<div id="xubcdrhdyk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xubcdrhdyk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#aobbclxjhp thead, #aobbclxjhp tbody, #aobbclxjhp tfoot, #aobbclxjhp tr, #aobbclxjhp td, #aobbclxjhp th {
+#xubcdrhdyk thead, #xubcdrhdyk tbody, #xubcdrhdyk tfoot, #xubcdrhdyk tr, #xubcdrhdyk td, #xubcdrhdyk th {
   border-style: none;
 }
 
-#aobbclxjhp p {
+#xubcdrhdyk p {
   margin: 0;
   padding: 0;
 }
 
-#aobbclxjhp .gt_table {
+#xubcdrhdyk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -128,12 +127,12 @@ ul.task-list li input[type="checkbox"] {
   border-left-color: #D3D3D3;
 }
 
-#aobbclxjhp .gt_caption {
+#xubcdrhdyk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#aobbclxjhp .gt_title {
+#xubcdrhdyk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -145,7 +144,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-width: 0;
 }
 
-#aobbclxjhp .gt_subtitle {
+#xubcdrhdyk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -157,7 +156,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-width: 0;
 }
 
-#aobbclxjhp .gt_heading {
+#xubcdrhdyk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -169,13 +168,13 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#aobbclxjhp .gt_bottom_border {
+#xubcdrhdyk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#aobbclxjhp .gt_col_headings {
+#xubcdrhdyk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -190,7 +189,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#aobbclxjhp .gt_col_heading {
+#xubcdrhdyk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -210,7 +209,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#aobbclxjhp .gt_column_spanner_outer {
+#xubcdrhdyk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -222,15 +221,15 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 4px;
 }
 
-#aobbclxjhp .gt_column_spanner_outer:first-child {
+#xubcdrhdyk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#aobbclxjhp .gt_column_spanner_outer:last-child {
+#xubcdrhdyk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#aobbclxjhp .gt_column_spanner {
+#xubcdrhdyk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -242,11 +241,11 @@ ul.task-list li input[type="checkbox"] {
   width: 100%;
 }
 
-#aobbclxjhp .gt_spanner_row {
+#xubcdrhdyk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#aobbclxjhp .gt_group_heading {
+#xubcdrhdyk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -272,7 +271,7 @@ ul.task-list li input[type="checkbox"] {
   text-align: left;
 }
 
-#aobbclxjhp .gt_empty_group_heading {
+#xubcdrhdyk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -287,15 +286,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 
-#aobbclxjhp .gt_from_md > :first-child {
+#xubcdrhdyk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#aobbclxjhp .gt_from_md > :last-child {
+#xubcdrhdyk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#aobbclxjhp .gt_row {
+#xubcdrhdyk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -314,7 +313,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#aobbclxjhp .gt_stub {
+#xubcdrhdyk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -327,7 +326,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#aobbclxjhp .gt_stub_row_group {
+#xubcdrhdyk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -341,15 +340,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: top;
 }
 
-#aobbclxjhp .gt_row_group_first td {
+#xubcdrhdyk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#aobbclxjhp .gt_row_group_first th {
+#xubcdrhdyk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#aobbclxjhp .gt_summary_row {
+#xubcdrhdyk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -359,16 +358,16 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#aobbclxjhp .gt_first_summary_row {
+#xubcdrhdyk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#aobbclxjhp .gt_first_summary_row.thick {
+#xubcdrhdyk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#aobbclxjhp .gt_last_summary_row {
+#xubcdrhdyk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -378,7 +377,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#aobbclxjhp .gt_grand_summary_row {
+#xubcdrhdyk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -388,7 +387,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#aobbclxjhp .gt_first_grand_summary_row {
+#xubcdrhdyk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -398,7 +397,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-color: #D3D3D3;
 }
 
-#aobbclxjhp .gt_last_grand_summary_row_top {
+#xubcdrhdyk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -408,11 +407,11 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#aobbclxjhp .gt_striped {
+#xubcdrhdyk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#aobbclxjhp .gt_table_body {
+#xubcdrhdyk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -421,7 +420,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#aobbclxjhp .gt_footnotes {
+#xubcdrhdyk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -435,7 +434,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#aobbclxjhp .gt_footnote {
+#xubcdrhdyk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -444,7 +443,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#aobbclxjhp .gt_sourcenotes {
+#xubcdrhdyk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -458,7 +457,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#aobbclxjhp .gt_sourcenote {
+#xubcdrhdyk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -466,72 +465,72 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#aobbclxjhp .gt_left {
+#xubcdrhdyk .gt_left {
   text-align: left;
 }
 
-#aobbclxjhp .gt_center {
+#xubcdrhdyk .gt_center {
   text-align: center;
 }
 
-#aobbclxjhp .gt_right {
+#xubcdrhdyk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#aobbclxjhp .gt_font_normal {
+#xubcdrhdyk .gt_font_normal {
   font-weight: normal;
 }
 
-#aobbclxjhp .gt_font_bold {
+#xubcdrhdyk .gt_font_bold {
   font-weight: bold;
 }
 
-#aobbclxjhp .gt_font_italic {
+#xubcdrhdyk .gt_font_italic {
   font-style: italic;
 }
 
-#aobbclxjhp .gt_super {
+#xubcdrhdyk .gt_super {
   font-size: 65%;
 }
 
-#aobbclxjhp .gt_footnote_marks {
+#xubcdrhdyk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#aobbclxjhp .gt_asterisk {
+#xubcdrhdyk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#aobbclxjhp .gt_indent_1 {
+#xubcdrhdyk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#aobbclxjhp .gt_indent_2 {
+#xubcdrhdyk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#aobbclxjhp .gt_indent_3 {
+#xubcdrhdyk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#aobbclxjhp .gt_indent_4 {
+#xubcdrhdyk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#aobbclxjhp .gt_indent_5 {
+#xubcdrhdyk .gt_indent_5 {
   text-indent: 25px;
 }
 
-#aobbclxjhp .katex-display {
+#xubcdrhdyk .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#aobbclxjhp div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#xubcdrhdyk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -579,17 +578,11 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
-<p><em><strong>Table 1:</strong> Summary statistics of the exposure variable, outcome variable, and covariates for the simulated cohort (n = 5,000).</em></p>
+<p><em><strong>Table 1:</strong> Descriptive statistics of the simulated cohort (n = 5,000), including smoking status, cardiovascular disease incidence, healthcare costs, age, and sex.</em></p>
 <p>Using a base logistic regression model to assess the relationship between smoking and cardiovascular disease incidence on the training dataset, not adjusting for age and sex, smokers have exp(2.14) = 8.47 times the odds of being diagnosed with cardiovascular disease compared to non-smokers (p &lt; 0.001). Adjusting for age and sex, smokers have exp(2.50) = 12.21 times the odds of being diagnosed with cardiovascular disease compared to non-smokers (p &lt; 0.001). Female sex was associated with substantially lower odds of CVD (exp(−4.38) = 0.01, p &lt; 0.001). Age was not statistically significant at the 0.05 level (exp(0.011) = 1.01, p = 0.077).</p>
 <p>Using a base linear regression model to assess the relationship between smoking and healthcare costs on the training dataset, not adjusting for age and sex, smokers face an average increase of $552.38 in healthcare costs compared to non-smokers (p &lt; 0.001). Adjusting for age and sex, smokers face an average increase of $587.69 in healthcare costs compared to non-smokers (p &lt; 0.001). Female sex was associated with $318.94 lower healthcare costs (p &lt; 0.001). Each additional year of age was associated with $16.87 higher healthcare costs (p &lt; 0.001).</p>
 <p>We then tested the model fit on the test data. Figures 1a-b demonstrates the results of the validation. We see that the Receiver Operating Characteristic (ROC) curve yielded an area under the curve (AUC) of approximately 0.78, indicating some discriminative ability of the cardiovascular disease model. The validation plot for the cost model showed reasonable agreement between predicted and actual values.</p>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Setting levels: control = 0, case = 1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Setting direction: controls &lt; cases</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -608,7 +601,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
-<p><em><strong>Figures 1a-b:</strong> (a) ROC curve demonstrating an AUC of 0.7836, and (b) predicted vs.&nbsp;actual healthcare costs of the test data.</em></p>
+<p><em><strong>Figures 1a-b:</strong> Model validation on the test dataset (30% holdout). (a) ROC curve for the logistic regression model predicting cardiovascular disease incidence (AUC = 0.784). (b) Predicted vs.&nbsp;actual healthcare costs from the linear regression model; the diagonal line represents perfect agreement.</em></p>
 <p>Fitting the logistic regression to the full dataset, adjusting for age and sex, smokers have exp(2.26) = 9.58 times the odds of being diagnosed with cardiovascular disease compared to non-smokers (p &lt; 0.001). Female sex was associated with substantially lower odds of CVD (exp(−2.56) = 0.08, or approximately 92% lower odds, p &lt; 0.001). All coefficients were statistically significant at p &lt; 0.05. Age was marginally significant in the training data (p = 0.077) but reached significance when fit to the full dataset (p = 0.031), likely reflecting increased statistical power.</p>
 <p>Fitting the linear regression to the full dataset, adjusting for age and sex, smokers face an average increase of $600.87 in healthcare costs compared to non-smokers (p &lt; 0.001). Female sex was associated with $323.76 lower healthcare costs (p &lt; 0.001). Each additional year of age was associated with $16.96 higher healthcare costs (p &lt; 0.001). All coefficients were statistically significant at p &lt; 0.05.</p>
 <div class="cell">
@@ -627,7 +620,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
-<p><em><strong>Figures 2a-b:</strong> Plot with 95% CI for the (a) predicted probability of cardiovascular disease incidence based on adjusted smoking status, and (b) predicted increase in healthcare costs based on adjusted smoking status.</em></p>
+<p><em><strong>Figures 2a-b:</strong> Adjusted associations from models fit to the full dataset, controlling for age and sex. (a) Predicted probability of cardiovascular disease by smoking status with 95% confidence intervals. (b) Predicted healthcare costs by smoking status with 95% confidence intervals.</em></p>
 </section>
 <section id="discussion" class="level2">
 <h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
